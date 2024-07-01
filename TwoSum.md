@@ -1,6 +1,8 @@
 // # Question
 // Given an array of integers nums and an integer target, 
 // return indices of the two numbers such that they add up to target.
+
+
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -16,6 +18,8 @@ public:
         return {};
     }
 };
+
+
 // ## Sample Input:
 // Nums:- [2,7,11,15]
 // Target:- 9
