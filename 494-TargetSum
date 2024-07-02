@@ -1,0 +1,31 @@
+// # Question
+// You are given an integer array nums and an integer target.
+// You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.
+
+// # Return
+// Return the number of different expressions that you can build, which evaluates to target.
+
+class Solution {
+public:
+    int dp[30][2001];
+    int compute(int index, vector<int>& nums, int target, int sum){
+        if(index == nums.size()) return sum == target;
+        if(dp[index][sum+1000] != -1) return dp[index][sum+1000];
+        int count = 0;
+        count+= compute(index+1, nums, target, sum + nums[index]);
+        count+= compute(index+1, nums, target, sum - nums[index]);
+        dp[index][sum+1000] = count;
+        return count;
+    }
+    int findTargetSumWays(vector<int>& nums, int target) {
+        memset(dp, -1, sizeof(dp));
+        return compute(0, nums, target, 0);
+    }
+};
+
+// ## Sample Input:
+// Nums:- [1,1,1,1,1]
+// Target:- 3
+//
+// ## Expected Output:
+// 5
