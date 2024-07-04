@@ -1,0 +1,30 @@
+// # Question
+// Given an integer array nums and an integer k, find out the k most frequent elements. 
+
+// # Return
+// Return the k most frequent elements.
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        vector<int> result;
+        unordered_map<int,int> m;
+        priority_queue<pair<int,int>> pq;
+        for(int x: nums) m[x]++;
+        for(auto it: m){
+            pq.push({it.second, it.first});
+        }
+        while(k--){
+            pair<int,int> val = pq.top();
+            pq.pop();
+            result.push_back(val.second);
+        }
+        return result;
+    }
+};
+
+// ## Sample Input:
+// nums:- [1,1,1,2,2,3]
+// k = 2
+// ## Expected Output:
+// [1,2]
