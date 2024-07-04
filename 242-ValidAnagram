@@ -1,0 +1,27 @@
+// # Question
+// Given two strings s and t, check is string t is an anagram of s.
+// An Anagram is a word or phrase formed by rearranging the letters
+// of a different word or phrase, typically using all the original letters exactly once.
+
+// # Return
+// Return true if t is an anagram of s, and false otherwise.
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        vector<int> charMap(26,0);
+        for(char c: s) charMap[c-'a']++;
+        for(char c: t) charMap[c-'a']--;
+        for(int x: charMap){
+            if(x !=0 ) return false;
+        }
+        return true;
+    }
+};
+
+// ## Sample Input:
+// s = "anagram"
+// t = "nagaram"
+//
+// ## Expected Output:
+// True
