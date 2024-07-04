@@ -1,0 +1,24 @@
+// # Question
+// Given an integer array nums, check if any value appears at least twice in the array.
+
+// # Return
+// Return true if any value appears at least twice in the array,
+// and return false if every element is distinct.
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_map<int,int> mp;
+        for(int x: nums){
+            if(mp.find(x)!=mp.end()) return true;
+            mp[x]++;
+        }
+        return false;
+    }
+};
+
+// ## Sample Input:
+// Nums:- [1,2,3,1]
+//
+// ## Expected Output:
+// true
