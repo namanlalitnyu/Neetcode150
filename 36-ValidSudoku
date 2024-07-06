@@ -1,0 +1,53 @@
+// # Question
+// Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+// * Each row must contain the digits 1-9 without repetition.
+// * Each column must contain the digits 1-9 without repetition.
+// * Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+
+// # Return
+// Return true if its a valid sudoku
+// Return false if its an invalid sudoku
+
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        vector<int> mp(10,0);
+        for(int i=0;i<board.size();i++){
+            for(int j=0;j<board[i].size();j++){
+                if(board[i][j] == '.') continue;
+                if(mp[board[i][j]-'0'] > 0) return false;
+                mp[board[i][j]-'0'] = 1;
+            }
+            fill(mp.begin(), mp.end(),0);
+        }
+        for(int j=0;j<board.size();j++){
+            for(int i=0;i<board[j].size();i++){
+                if(board[i][j] == '.') continue;
+                if(mp[board[i][j]-'0'] > 0) return false;
+                mp[board[i][j]-'0'] = 1;
+            }
+            fill(mp.begin(), mp.end(),0);
+        }
+        for(int i=0;i<7;i+=3){
+            for(int j=0;j<7;j+=3){
+                fill(mp.begin(), mp.end(),0);
+                for(int k=0;k<3;k++){
+                    for(int l=0;l<3;l++){
+                        if(board[i+k][j+l] == '.') continue;
+                        if(mp[board[i+k][j+l]-'0'] > 0){
+                            return false;
+                        }
+                        mp[board[i+k][j+l]-'0'] = 1;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+};
+
+// ## Sample Input:
+// board = [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
+//
+// ## Expected Output:
+// true
