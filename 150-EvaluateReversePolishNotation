@@ -1,0 +1,50 @@
+// # Question
+// You are given an array of strings tokens that represents an arithmetic expression
+// in a Reverse Polish Notation.
+// Evaluate the expression
+
+// # Return
+// Return an integer that represents the value of the expression.
+
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> st;
+        for(string s: tokens){
+            if(s == "+"){
+                int v1 = st.top();
+                st.pop();
+                int v2 = st.top();
+                st.pop();
+                st.push(v1+v2);
+            }else if(s == "*"){
+                int v1 = st.top();
+                st.pop();
+                int v2 = st.top();
+                st.pop();
+                st.push(v1*v2);
+            }else if(s == "/"){
+                int v1 = st.top();
+                st.pop();
+                int v2 = st.top();
+                st.pop();
+                st.push(v2/v1);
+            }else if(s == "-"){
+                int v1 = st.top();
+                st.pop();
+                int v2 = st.top();
+                st.pop();
+                st.push(v2-v1);
+            }else{
+                st.push(stoi(s));
+            }
+        }
+        return st.top();
+    }
+};
+
+// ## Sample Input:
+// tokens = ["2","1","+","3","*"]
+//
+// ## Expected Output:
+// 9
