@@ -1,0 +1,34 @@
+// # Question and Response
+// Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+// In other words, return true if one of s1's permutations is the substring of s2.
+
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        vector<int> mapping(26,0);
+        for(char c: s1) mapping[c-'a']++;
+        int k = s1.size();
+        int start = 0, end = start + k - 1;
+        while(end < s2.size()){
+            int temp = start;
+            vector<int> tempMap = mapping;
+            while(temp <= end){
+                if(tempMap[s2[temp]-'a'] > 0){
+                    tempMap[s2[temp]-'a']--;
+                    temp++;
+                }else{
+                    start++;
+                    end = start + k - 1;
+                    break;
+                }
+            }
+            if(temp == end + 1) return true;
+        }
+        return false;
+    }
+};
+
+// Input
+// s1 = "ab", s2 = "eidbaooo"
+// Output
+// "True"
