@@ -1,0 +1,51 @@
+// # Question and Response
+// You are given the head of a singly linked-list. The list can be represented as:
+// L0 → L1 → … → Ln - 1 → Ln
+// Reorder the list to be on the following form:
+// L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+// You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+
+
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(!head) return;
+        // Find the middle of the linked list
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        while(fast and fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        ListNode* head2 = slow->next;
+        slow->next = NULL;
+        ListNode* tail = NULL;
+
+        // Reverse the second part of the list
+        while(head2){
+            ListNode* nxt = head2->next;
+            head2->next = tail;
+            tail = head2;
+            head2 = nxt;
+        }
+
+        head2 = tail;
+
+        // Assesmble the final list
+        ListNode* h = head;
+        while(head2){
+            ListNode* temp1 = h->next;
+            ListNode* temp2 = head2->next;
+            h->next = head2;
+            head2->next = temp1;
+            head2 = temp2;
+            h = temp1;
+        }
+    }
+};
+
+// # Inputs
+// head = [1,2,3,4]
+// # Output
+// [1, 4, 2, 3]
