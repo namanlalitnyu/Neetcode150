@@ -1,0 +1,22 @@
+// #Question and Response
+// Given the root of a binary tree, return its maximum depth.
+// A binary tree's maximum depth is the number of nodes along the longest path
+// from the root node down to the farthest leaf node.
+
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(!root) return NULL;
+        if(!root->left and !root->right) return root;
+        TreeNode* lft = invertTree(root->left);
+        TreeNode* rht = invertTree(root->right);
+        root->left = rht;
+        root->right = lft;
+        return root;
+    }
+};
+
+// #Input
+// root = [3,9,20,null,null,15,7]
+// #Output
+// 3
