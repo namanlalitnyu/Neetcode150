@@ -1,0 +1,30 @@
+// #Question and Response
+// Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) 
+// of all the values of the nodes in the tree.
+
+class Solution {
+public:
+    int count, val;
+    void dfs(TreeNode* root, int& count, int k){
+        if(count > k) return;
+        if(root->left) dfs(root->left, count, k);
+        if(count == k){
+            val = root->val;
+            count++;
+            return;
+        }
+        count++;
+        if(root->right) dfs(root->right, count, k);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        count = 1;
+        val = -1;
+        dfs(root, count, k);
+        return val;
+    }
+};
+
+// #Input
+// root = [3,1,4,null,2], k = 1
+// #Output
+// 1
