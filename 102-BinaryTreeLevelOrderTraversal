@@ -1,0 +1,31 @@
+// #Question and Response
+// Given the root of a binary tree, return the level order traversal of its nodes' values. 
+// (i.e., from left to right, level by level).
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(!root) return {};
+        vector<vector<int>> result;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int sz = q.size();
+            vector<int> level;
+            for(int i=0;i<sz;i++){
+                TreeNode* tp = q.front();
+                q.pop();
+                if(tp->left) q.push(tp->left);
+                if(tp->right) q.push(tp->right);
+                level.push_back(tp->val);
+            }
+            result.push_back(level);
+        }
+        return result;
+    }
+};
+
+// #Input
+// root = [3,9,20,null,null,15,7]
+// #Output
+// [[3],[9,20],[15,7]]
