@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "143-reorderlist": "c",
-        "226-invertbinarytree": "c"
+        "226-invertbinarytree": "c",
+        "215-kthlargestelementinarray": "c"
     }
 }
