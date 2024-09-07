@@ -1,0 +1,25 @@
+// #Question and Response
+// Given a reference of a node in a connected undirected graph.
+// Return a deep copy (clone) of the graph.
+// Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.
+
+class Solution {
+private:
+    unordered_map<Node*, Node*> nodes;
+public:
+    Node* cloneGraph(Node* node) {
+        if(!node) return NULL;
+        if(nodes.find(node) == nodes.end()){
+            nodes[node] = new Node(node->val, {});
+            for(Node* neighbor: node->neighbors){
+                nodes[node]->neighbors.push_back(cloneGraph(neighbor));
+            }
+        }
+        return nodes[node];
+    }
+};
+
+// #Input
+// adjList = [[2,4],[1,3],[2,4],[1,3]]
+// #Output
+// [[2,4],[1,3],[2,4],[1,3]]
