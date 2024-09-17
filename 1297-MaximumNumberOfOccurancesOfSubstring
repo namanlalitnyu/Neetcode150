@@ -1,0 +1,40 @@
+// #Question and Response
+// Given a string s, return the maximum number of occurrences of any substring under the following rules:
+// The number of unique characters in the substring must be less than or equal to maxLetters.
+// The substring size must be between minSize and maxSize inclusive.
+
+
+class Solution {
+public:
+    int countUnique(string s){
+        int result = 0;
+        vector<int> count(26,0);
+        for(char c: s){
+            count[c-'a']++;
+        }
+        for(int x: count){
+            if(x > 0) result++;
+        }
+        return result;
+    }
+    int maxFreq(string s, int maxLetters, int minSize, int maxSize) {
+        int maxCount = 0;
+        int start = 0, end = s.size();
+        unordered_map<string, int> mapping;
+        while(start <= (end - minSize)){
+            string subs = s.substr(start, minSize);
+            int uniqueCount = countUnique(subs);
+            if(uniqueCount <= maxLetters){
+                mapping[subs]++;
+                maxCount = max(maxCount, mapping[subs]);
+            }
+            start++;
+        }
+        return maxCount;
+    }
+};
+
+// #Input
+// Input: s = "aababcaab", maxLetters = 2, minSize = 3, maxSize = 4
+// #Output
+// 2
